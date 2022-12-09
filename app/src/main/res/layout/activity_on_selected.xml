@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivOnSelected"
+            android:layout_width="0dp"
+            android:layout_height="500dp"
+            tools:background="#953838"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"/>
+
+        <TextView
+            android:id="@+id/tvSelectedName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ricknmorty_font"
+            android:textColor="#FFFFFF"
+            android:textSize="50sp"
+            android:textAlignment="center"
+            android:padding="15dp"
+            android:background="#95000000"
+            tools:text="Rick Sanchez"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/ivOnSelected"/>
+
+        <TextView
+            android:id="@+id/tvSelectedStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            tools:text="Alive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivOnSelected"
+            app:layout_constraintEnd_toStartOf="@id/tvSelectedType"/>
+
+        <TextView
+            android:id="@+id/tvSelectedType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            tools:text="Human"
+            app:layout_constraintStart_toEndOf="@id/tvSelectedStatus"
+            app:layout_constraintTop_toBottomOf="@id/ivOnSelected"
+            app:layout_constraintEnd_toStartOf="@id/tvSelectedSpecies"/>
+
+        <TextView
+            android:id="@+id/tvSelectedSpecies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            tools:text="Species"
+            app:layout_constraintStart_toEndOf="@id/tvSelectedType"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivOnSelected"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
