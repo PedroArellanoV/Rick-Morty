@@ -11,7 +11,6 @@ import com.example.rickmortyapp.domain.model.UiCharacterModel
 
 class AllCharactersAdapter(
     private val characters: List<UiCharacterModel>,
-    private val isFavourite: (Int) -> Boolean,
     private val onClickListener: (UiCharacterModel) -> Unit,
     private val onCheckedBox: (UiCharacterModel) -> Unit,
     private val onUncheckedBox: (UiCharacterModel) -> Unit
@@ -25,7 +24,7 @@ class AllCharactersAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = characters[position]
-        holder.bind(item, isFavourite, onClickListener, onCheckedBox, onUncheckedBox)
+        holder.bind(item, onClickListener, onCheckedBox, onUncheckedBox)
     }
 
     override fun getItemCount(): Int = characters.size
@@ -35,7 +34,6 @@ class AllCharactersAdapter(
         private var favouriteCheckBox = binding.cbFavouriteMain
         fun bind(
             character: UiCharacterModel,
-            isFavourite: (Int) -> Boolean,
             onClickListener: (UiCharacterModel) -> Unit,
             onCheckedBox: (UiCharacterModel) -> Unit,
             onUncheckedBox: (UiCharacterModel) -> Unit
@@ -51,9 +49,8 @@ class AllCharactersAdapter(
                 onClickListener(character)
             }
 
-            val fav = isFavourite(character.id)
-            if (fav){
-                favouriteCheckBox.isChecked = true
+            if (character.isFavourite != null) {
+                favouriteCheckBox.isChecked = character.isFavourite!!
             }
 
             favouriteCheckBox.setOnCheckedChangeListener { _, _ ->

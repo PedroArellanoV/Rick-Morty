@@ -12,7 +12,8 @@ data class UiCharacterModel(
     val gender: String,
     val image: String,
     val url: String,
-    val created: String
+    val created: String,
+    var isFavourite: Boolean?
 )
 
 fun CharacterEntity.toDomain() = UiCharacterModel(
@@ -24,7 +25,8 @@ fun CharacterEntity.toDomain() = UiCharacterModel(
     gender = gender,
     image = image,
     url = url,
-    created = created
+    created = created,
+    isFavourite = null
 )
 fun CharacterModel.toDomain() = UiCharacterModel(
     id = id,
@@ -35,5 +37,6 @@ fun CharacterModel.toDomain() = UiCharacterModel(
     gender = gender,
     image = image,
     url = url,
-    created = created
+    created = created,
+    isFavourite = null
 )

@@ -14,8 +14,6 @@ import com.example.rickmortyapp.ui.view.adapters.AllCharactersAdapter
 import com.example.rickmortyapp.ui.viewmodel.MainActivityViewModel
 import com.example.rickmortyapp.databinding.ActivityMainBinding
 import com.example.rickmortyapp.domain.model.UiCharacterModel
-import com.example.rickmortyapp.domain.model.UiRequestModel
-import com.example.rickmortyapp.domain.model.toDomain
 import com.example.rickmortyapp.ui.view.adapters.FavouriteCharactersAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,9 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var allCharactersAdapter: AllCharactersAdapter
     private lateinit var favouriteCharactersAdapter: FavouriteCharactersAdapter
-    private lateinit var allCharacters: UiRequestModel
-    private var isFavourite: Boolean = false
-    private var allCharactersResults: List<UiCharacterModel> = emptyList()
+    private lateinit var allCharacters: List<UiCharacterModel>
     private var favouriteCharacters: List<UiCharacterModel> = emptyList()
 
     private val viewModel: MainActivityViewModel by viewModels()
@@ -37,12 +33,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.charactersPage.observe(this) {
+        viewModel.charactersList.observe(this) {
             allCharacters = it
-            val allCharactersMapper = allCharacters.results
-            allCharactersResults = allCharactersMapper.map { it.toDomain() }
             initAllCharactersRecyclerView()
         }
+
 
         viewModel.favouriteCharacters.observe(this) {
             if (it.isNotEmpty()) {
@@ -75,8 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initAllCharactersRecyclerView() {
         allCharactersAdapter = AllCharactersAdapter(
-            allCharactersResults,
-            { character -> isFavouriteFun(character) },
+            allCharacters,
             { character -> onItemSelected(character) },
             { character -> onCheckedBox(character) },
             { character -> onUncheckedBox(character) })
@@ -119,14 +113,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun onCheckedBox(character: UiCharacterModel) {
         viewModel.insertCharacter(character)
-    }
-
-    private fun isFavouriteFun(id: Int): Boolean {
-        viewModel.getCharacterId(id)
-        viewModel.isFavourite.observe(this) {
-            isFavourite = it
-        }
-        return isFavourite
     }
 
     private fun onUncheckedBox(character: UiCharacterModel) {
